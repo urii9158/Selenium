@@ -104,4 +104,17 @@ class CallbackTest {
 
         //в поле "Телефон" введено невалидное значение
     }
+
+    @Test
+    void shouldTestV6() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Денисова Екатерина");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79270000000");
+
+        driver.findElement(By.cssSelector("button.button")).click();
+        String text = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid .checkbox__text")).getText();
+        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", text.trim());
+
+        //без согласия на сбор информации
+    }
 }
